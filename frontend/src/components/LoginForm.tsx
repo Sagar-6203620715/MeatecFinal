@@ -38,62 +38,83 @@ const LoginForm: React.FC = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold mb-6 text-gray-800">Login</h2>
-      {error && (
-        <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
-          {error}
-        </div>
-      )}
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        <div>
-          <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">
-            Username
-          </label>
-          <input
-            {...register('username')}
-            type="text"
-            id="username"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-          {errors.username && (
-            <p className="mt-1 text-sm text-red-600">{errors.username.message}</p>
-          )}
-        </div>
 
-        <div>
-          <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
-            Password
-          </label>
-          <input
-            {...register('password')}
-            type="password"
-            id="password"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-          {errors.password && (
-            <p className="mt-1 text-sm text-red-600">{errors.password.message}</p>
-          )}
-        </div>
+    <div className="min-h-screen flex items-center justify-center ">
+      <div className="w-full max-w-md p-8 bg-white/80 backdrop-blur-md border border-gray-200 
+                      rounded-2xl shadow-xl shadow-blue-100 transition-all animate-fadeIn">
+        
+        <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center tracking-tight">
+          Welcome Back 👋
+        </h2>
 
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          {loading ? 'Logging in...' : 'Login'}
-        </button>
-      </form>
-      <p className="mt-4 text-center text-sm text-gray-600">
-        Don't have an account?{' '}
-        <a href="/register" className="text-blue-600 hover:underline">
-          Register here
-        </a>
-      </p>
+        {error && (
+          <div className="mb-4 p-3 rounded-lg bg-red-50 border border-red-300 text-red-700 text-sm">
+            {error}
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+          {/* Username */}
+          <div>
+            <label htmlFor="username" className="text-sm font-medium text-gray-700 block mb-1">
+              Username
+            </label>
+            <input
+              {...register('username')}
+              type="text"
+              id="username"
+              className="w-full px-3 py-2.5 border border-gray-300 rounded-lg 
+                        focus:outline-none focus:ring-2 focus:ring-blue-500 
+                        focus:border-blue-500 transition-all shadow-sm"
+            />
+            {errors.username && (
+              <p className="mt-1 text-sm text-red-600">{errors.username.message}</p>
+            )}
+          </div>
+
+          {/* Password */}
+          <div>
+            <label htmlFor="password" className="text-sm font-medium text-gray-700 block mb-1">
+              Password
+            </label>
+            <input
+              {...register('password')}
+              type="password"
+              id="password"
+              className="w-full px-3 py-2.5 border border-gray-300 rounded-lg 
+                        focus:outline-none focus:ring-2 focus:ring-blue-500 
+                        focus:border-blue-500 transition-all shadow-sm"
+            />
+            {errors.password && (
+              <p className="mt-1 text-sm text-red-600">{errors.password.message}</p>
+            )}
+          </div>
+
+          {/* Submit Button */}
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full py-2.5 bg-blue-600 text-white rounded-lg font-medium
+                      hover:bg-blue-700 transition-all shadow-md hover:shadow-lg 
+                      active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {loading ? 'Logging in...' : 'Login'}
+          </button>
+        </form>
+
+        <p className="mt-5 text-center text-sm text-gray-600">
+          Don't have an account?{' '}
+          <a href="/register" className="text-blue-600 hover:underline font-medium">
+            Register here
+          </a>
+        </p>
+      </div>
     </div>
+
   );
 };
 
 export default LoginForm;
+
 
 
