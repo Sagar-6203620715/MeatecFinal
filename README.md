@@ -71,19 +71,27 @@ JWT_EXPIRES_IN="7d"
 PORT=3000
 ```
 
-**Note:** Replace `your-secret-key-change-this-in-production` with a strong, random secret key for production use.
+**For MongoDB Atlas (Cloud):**
+If you're using MongoDB Atlas, your connection string should include the database name:
+```env
+DATABASE_URL="mongodb+srv://username:password@cluster0.xxxxx.mongodb.net/taskmanagement?retryWrites=true&w=majority"
+```
 
-4. Generate Prisma Client:
+**Note:** 
+- Replace `username` and `password` with your MongoDB Atlas credentials
+- Replace `cluster0.xxxxx.mongodb.net` with your actual cluster URL
+- The database name (`taskmanagement`) must be included in the connection string
+- Replace `your-secret-key-change-this-in-production` with a strong, random secret key for production use
+
+4. Generate Prisma Client and push schema to MongoDB:
 ```bash
 npm run prisma:generate
+npm run prisma:push
 ```
 
-5. Run database migrations:
-```bash
-npm run prisma:migrate
-```
+**Note:** MongoDB doesn't use traditional migrations. `prisma db push` syncs your Prisma schema directly to the database.
 
-6. Start the backend server:
+5. Start the backend server:
 ```bash
 npm run start:dev
 ```
@@ -359,9 +367,11 @@ MeatecFinal/
 ## Troubleshooting
 
 ### MongoDB Connection Issues
-- Ensure MongoDB is running
+- Ensure MongoDB is running (local) or your MongoDB Atlas cluster is accessible
 - Check the `DATABASE_URL` in `.env` file
-- Verify MongoDB connection string format
+- **For MongoDB Atlas:** Make sure the database name is included in the connection string (e.g., `mongodb+srv://...@cluster.mongodb.net/databaseName?...`)
+- **For Local MongoDB:** Use format `mongodb://localhost:27017/databaseName`
+- Verify MongoDB connection string format matches: `mongodb://` or `mongodb+srv://` followed by credentials, host, database name, and options
 
 ### JWT Authentication Issues
 - Ensure `JWT_SECRET` is set in `.env`
