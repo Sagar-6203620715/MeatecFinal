@@ -139,116 +139,6 @@ The frontend application will run on `http://localhost:5173`
    - Open your browser and navigate to `http://localhost:5173`
    - Register a new account or login with existing credentials
 
-## API Endpoints
-
-### Authentication
-
-#### Register User
-- **POST** `/api/auth/register`
-- **Body:**
-  ```json
-  {
-    "username": "string (min 3 characters)",
-    "password": "string (min 6 characters)"
-  }
-  ```
-- **Response:**
-  ```json
-  {
-    "access_token": "jwt-token",
-    "user": {
-      "id": "user-id",
-      "username": "username"
-    }
-  }
-  ```
-
-#### Login
-- **POST** `/api/auth/login`
-- **Body:**
-  ```json
-  {
-    "username": "string",
-    "password": "string"
-  }
-  ```
-- **Response:**
-  ```json
-  {
-    "access_token": "jwt-token",
-    "user": {
-      "id": "user-id",
-      "username": "username"
-    }
-  }
-  ```
-
-### Tasks (Protected Routes - Require JWT Token)
-
-All task endpoints require authentication. Include the JWT token in the Authorization header:
-```
-Authorization: Bearer <your-jwt-token>
-```
-
-#### Get All Tasks
-- **GET** `/api/tasks`
-- **Response:**
-  ```json
-  [
-    {
-      "id": "task-id",
-      "title": "Task title",
-      "description": "Task description",
-      "status": "pending",
-      "userId": "user-id",
-      "createdAt": "2024-01-01T00:00:00.000Z",
-      "updatedAt": "2024-01-01T00:00:00.000Z"
-    }
-  ]
-  ```
-
-#### Get Single Task
-- **GET** `/api/tasks/:id`
-- **Response:**
-  ```json
-  {
-    "id": "task-id",
-    "title": "Task title",
-    "description": "Task description",
-    "status": "pending",
-    "userId": "user-id",
-    "createdAt": "2024-01-01T00:00:00.000Z",
-    "updatedAt": "2024-01-01T00:00:00.000Z"
-  }
-  ```
-
-#### Create Task
-- **POST** `/api/tasks`
-- **Body:**
-  ```json
-  {
-    "title": "string (required)",
-    "description": "string (optional)",
-    "status": "pending | completed | in-progress (optional, default: pending)"
-  }
-  ```
-- **Response:** Created task object
-
-#### Update Task
-- **PUT** `/api/tasks/:id`
-- **Body:**
-  ```json
-  {
-    "title": "string (optional)",
-    "description": "string (optional)",
-    "status": "pending | completed | in-progress (optional)"
-  }
-  ```
-- **Response:** Updated task object
-
-#### Delete Task
-- **DELETE** `/api/tasks/:id`
-- **Response:** Deleted task object
 
 ## Testing
 
@@ -328,25 +218,6 @@ MeatecFinal/
 └── README.md
 ```
 
-## Database Schema
-
-### User Model
-- `id` (ObjectId) - Primary key
-- `username` (String, unique) - User's username
-- `password` (String) - Hashed password
-- `createdAt` (DateTime)
-- `updatedAt` (DateTime)
-- `tasks` (Relation) - User's tasks
-
-### Task Model
-- `id` (ObjectId) - Primary key
-- `title` (String) - Task title
-- `description` (String, optional) - Task description
-- `status` (String) - Task status (pending, completed, in-progress)
-- `userId` (ObjectId) - Foreign key to User
-- `createdAt` (DateTime)
-- `updatedAt` (DateTime)
-
 ## Security Features
 
 - Password hashing with bcrypt
@@ -364,23 +235,7 @@ MeatecFinal/
 - `JWT_EXPIRES_IN` - JWT token expiration time (default: 7d)
 - `PORT` - Backend server port (default: 3000)
 
-## Troubleshooting
 
-### MongoDB Connection Issues
-- Ensure MongoDB is running (local) or your MongoDB Atlas cluster is accessible
-- Check the `DATABASE_URL` in `.env` file
-- **For MongoDB Atlas:** Make sure the database name is included in the connection string (e.g., `mongodb+srv://...@cluster.mongodb.net/databaseName?...`)
-- **For Local MongoDB:** Use format `mongodb://localhost:27017/databaseName`
-- Verify MongoDB connection string format matches: `mongodb://` or `mongodb+srv://` followed by credentials, host, database name, and options
-
-### JWT Authentication Issues
-- Ensure `JWT_SECRET` is set in `.env`
-- Check token expiration settings
-- Verify token is being sent in Authorization header
-
-### CORS Issues
-- Ensure frontend URL matches CORS configuration in `backend/src/main.ts`
-- Default frontend URL: `http://localhost:5173`
 
 ## Contributing
 
@@ -390,9 +245,6 @@ MeatecFinal/
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## License
-
-This project is licensed under the MIT License.
 
 ## Author
 
